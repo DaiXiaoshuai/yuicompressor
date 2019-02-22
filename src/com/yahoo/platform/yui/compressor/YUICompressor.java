@@ -170,21 +170,21 @@ public class YUICompressor {
                                 public void warning(String message, String sourceName,
                                         int line, String lineSource, int lineOffset) {
                                     System.err.println("\n[WARNING] in " + localFilename);
-                                    if (line < 0) {
-                                        System.err.println("  " + message);
-                                    } else {
-                                        System.err.println("  " + line + ':' + lineOffset + ':' + message);
-                                    }
+//                                    if (line < 0) {
+//                                        System.err.println("  " + message);
+//                                    } else {
+//                                        System.err.println("  " + line + ':' + lineOffset + ':' + message);
+//                                    }
                                 }
 
                                 public void error(String message, String sourceName,
                                         int line, String lineSource, int lineOffset) {
                                     System.err.println("[ERROR] in " + localFilename);
-                                    if (line < 0) {
-                                        System.err.println("  " + message);
-                                    } else {
-                                        System.err.println("  " + line + ':' + lineOffset + ':' + message);
-                                    }
+//                                    if (line < 0) {
+//                                        System.err.println("  " + message);
+//                                    } else {
+//                                        System.err.println("  " + line + ':' + lineOffset + ':' + message);
+//                                    }
                                 }
 
                                 public EvaluatorException runtimeError(String message, String sourceName,
