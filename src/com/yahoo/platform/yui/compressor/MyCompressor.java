@@ -14,6 +14,7 @@ public class MyCompressor {
     private static String rootPath = "F:/minjs/root";
 
     public static void main(String[] args) throws IOException {
+        System.out.println("操作目录为:"+rootPath);
         Path rootPath = Paths.get(MyCompressor.rootPath);
 //        try(DirectoryStream<Path> stream = Files.newDirectoryStream(rootPath)){
 //            for(Path e : stream){
