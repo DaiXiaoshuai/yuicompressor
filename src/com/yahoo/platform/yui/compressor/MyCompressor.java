@@ -11,27 +11,18 @@ import java.util.List;
 
 public class MyCompressor {
 
-    private static String rootPath = "F:/minjs/root";
+    private static String rootPath = "F:/minjs/shxx_web";
 
     public static void main(String[] args) throws IOException {
         System.out.println("操作目录为:"+rootPath);
         Path rootPath = Paths.get(MyCompressor.rootPath);
-//        try(DirectoryStream<Path> stream = Files.newDirectoryStream(rootPath)){
-//            for(Path e : stream){
-//                System.out.println(e.getFileName());
-//            }
-//        }catch(IOException e){
-//            e.printStackTrace();
-//        }
         List<Path> result = new ArrayList<>(2000);
-        Files.walkFileTree(rootPath, new  MySimpleFileVisitor(result));
+        Files.walkFileTree(rootPath, new  MySimpleFileVisitor());
     }
 
-    private static class MySimpleFileVisitor extends SimpleFileVisitor<Path>{
+    public static class MySimpleFileVisitor extends SimpleFileVisitor<Path>{
 
-        private List<Path> result;
-        MySimpleFileVisitor(List<Path> result){
-            this.result = result;
+        MySimpleFileVisitor(){
         }
 
         @Override
@@ -43,12 +34,6 @@ public class MyCompressor {
                     JavaScriptCompressor scriptCompressor = new JavaScriptCompressor(in, new ErrorReporter() {
                         public void warning(String message, String sourceName,
                                             int line, String lineSource, int lineOffset) {
-//                            System.err.println("\n[WARNING] in " + fullPath);
-//                            if (line < 0) {
-//                                System.err.println("  " + message);
-//                            } else {
-//                                System.err.println("  " + line + ':' + lineOffset + ':' + message);
-//                            }
                         }
 
                         public void error(String message, String sourceName,
@@ -72,7 +57,6 @@ public class MyCompressor {
                     OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(new File(fullPath)), "UTF-8");
                     scriptCompressor.compress(
                             out,
-//                        new FileWriter(path.toFile()),  //输出路径
                             8000,   //行长度限制
                             true, //压缩过程是否修改参数名
                             true, //Display informational messages and warnings
@@ -83,7 +67,6 @@ public class MyCompressor {
                 } catch (Exception e){
                     e.printStackTrace();
                 }
-
             }
             return super.visitFile(path, attrs);
         }
