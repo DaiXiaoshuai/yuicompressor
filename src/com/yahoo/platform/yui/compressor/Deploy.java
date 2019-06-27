@@ -12,9 +12,9 @@ import java.nio.file.attribute.BasicFileAttributes;
 public class Deploy {
 
     //源码目录
-    public static String sourcesRoot = "E:\\apache-tomcat-8.5.38\\webapps\\shxx_web";
+    public static String sourcesRoot = "F:\\Web\\apache-tomcat-8.5.32\\webapps\\shxx_web";
     //目标目录
-    public static String targetRoot = "E:\\minjs\\shxx_web";
+    public static String targetRoot = "F:\\minjs\\shxx_web";
 //    //白名单 忽略的文件夹名 此验证方法仅判断路径中是否包含下列字符串
 //    public static String[] ignores = {".idea", ".svn"};
 
@@ -27,8 +27,6 @@ public class Deploy {
         //压缩并保存到目标目录
         Files.walkFileTree(Paths.get(sourcesRoot),new MoveAndSimplerVisitor() );
         Desktop.getDesktop().open(new File(targetRoot));
-
-
     }
 
     private static class DeleteFilesVisitor extends SimpleFileVisitor<Path>{
@@ -53,7 +51,7 @@ public class Deploy {
         @Override
         public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
             Reader in = new FileReader(file.toFile());
-            if(file.toString().endsWith(".js")){
+            if(file.toString().endsWith(".js")&& !file.toString().endsWith("min.js")){
                 try{
                     JavaScriptCompressor scriptCompressor = new JavaScriptCompressor(in, new ErrorReporter() {
                         public void warning(String message, String sourceName,
@@ -97,7 +95,8 @@ public class Deploy {
                     e.printStackTrace();
                 }
             }else{
-                Files.copy(file, Paths.get(file.toString().replace(sourcesRoot, targetRoot)));
+                 if(!file.toString().endsWith(".exe"))
+                    Files.copy(file, Paths.get(file.toString().replace(sourcesRoot, targetRoot)));
             }
             return super.visitFile(file, attrs);
         }
